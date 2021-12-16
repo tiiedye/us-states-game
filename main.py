@@ -21,6 +21,15 @@ game_on = True
 while game_on:
     answer_state = screen.textinput(title=f"{score.total}/50 States", prompt="Enter a State's name:").title()
 
+    if answer_state == "Exit":
+        missing_states = []
+        for state in all_states:
+            if state not in guesses:
+                missing_states.append(state)
+        new_data = pandas.DataFrame(missing_states)
+        new_data.to_csv("missing_states.csv")
+        break
+
     if answer_state in all_states and answer_state not in guesses:
         guesses.append(answer_state)
         score.increase_score()
